@@ -74,8 +74,22 @@ const HomeScreen = () => {
                     />
                 </View>
                 <View style={styles.view3}>
-                    <Text>Where to?</Text>
-                    <View></View>
+                    <Text style={styles.text3}>Where to?</Text>
+                    <View style={styles.view4}>
+                        <Icon
+                            type="material-community"
+                            name='clock-time-four'
+                            color={colors.gray1}
+                            size={26}
+                        />
+                        <Text style={{ marginLeft: 5 }}>Now</Text>
+                        <Icon
+                            type="material-community"
+                            name='chevron-down'
+                            color={colors.gray1}
+                            size={26}
+                        />
+                    </View>
                 </View>
             </ScrollView>
             <StatusBar style="light" backgroundColor={colors.blue} translucent />
