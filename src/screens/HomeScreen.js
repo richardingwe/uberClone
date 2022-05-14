@@ -1,5 +1,16 @@
+import { StatusBar } from "expo-status-bar";
 import React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Dimensions,
+    Image,
+    ScrollView,
+    FlatList
+} from 'react-native';
+import { Icon } from "react-native-elements";
+import { filterData } from "../global/data";
 import { colors, parameters } from "../global/styles";
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -7,7 +18,67 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const HomeScreen = () => {
     return (
         <View style={styles.container}>
-            <Text>Hello HomeScreen</Text>
+            <View style={styles.header}>
+                <View style={styles.icon1}>
+                    <Icon
+                        type="material-community"
+                        name='menu'
+                        color={colors.white}
+                        size={40}
+                    />
+                </View>
+            </View>
+            <ScrollView bounces={false}>
+                <View style={styles.home}>
+                    <Text style={styles.text1}>Tour around easily</Text>
+
+                    <View style={styles.view1}>
+                        <View style={styles.view8}>
+                            <Text style={styles.text2}>Read a book, Take a nap, Stare out the window</Text>
+
+                            <View style={styles.button1}>
+                                <Text style={styles.button1Text}>Ride with Uber</Text>
+                            </View>
+                        </View>
+
+                        <View>
+                            <Image
+                                source={require('../../assets/uberCar.png')}
+                                style={styles.image1}
+                            />
+                        </View>
+                    </View>
+                </View>
+
+                <View>
+                    <FlatList
+                        numRows={4}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={filterData}
+                        keyExtractor={item => item.id}
+                        renderItem={({ item }) => (
+                            <View style={styles.card}>
+                                <View style={styles.view2}>
+                                    <Image
+                                        source={item.image}
+                                        style={styles.image2}
+                                    />
+                                </View>
+
+                                <View>
+                                    <Text>{item.name}</Text>
+                                </View>
+                            </View>
+                        )}
+                    />
+                </View>
+                <View style={styles.view3}>
+                    <Text>Where to?</Text>
+                    <View></View>
+                </View>
+            </ScrollView>
+            <StatusBar style="light" backgroundColor={colors.blue} translucent />
         </View>
     );
 };
@@ -36,7 +107,8 @@ const styles = StyleSheet.create({
     },
 
     image2: {
-        height: 60, width: 60,
+        height: 60,
+        width: 60,
         borderRadius: 30,
     },
 
