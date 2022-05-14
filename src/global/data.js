@@ -61,9 +61,11 @@ export const paymentOptions = [{ image: require('../../assets/visaIcon.png'), te
 export const availableServices = ["Uber Go", "UberX", "Uber connect", "Uber Black", "Uber Van", "Uber Assist"];
 
 export const carsAround = [
-    { latitude: -26.207487, longitude: 28.236226 },
-    { latitude: -26.202616, longitude: 28.227718 },
-    { latitude: -26.202424, longitude: 28.236612 },
-    { latitude: -26.208565, longitude: 28.237191 },
-    { latitude: -26.203598, longitude: 28.239509 },
+    { latitude: 4.953060, longitude: 8.311800 },
+    { latitude: 4.972540, longitude: 8.354590 },
+    { latitude: 4.936920, longitude: 8.325490 },
+    { latitude: 4.933710, longitude: 8.328790 },
+    { latitude: 4.938980, longitude: 8.332860 },
+    { latitude: 4.944200, longitude: 8.338850 },
+    { latitude: 4.927940, longitude: 8.323130 },
 ];
