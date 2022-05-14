@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
     StyleSheet,
     Text,
@@ -12,10 +12,52 @@ import {
 import { Icon } from "react-native-elements";
 import { filterData } from "../global/data";
 import { colors, parameters } from "../global/styles";
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { mapStyle } from "../global/mapStyle";
+import * as Location from 'expo-location';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const HomeScreen = () => {
+    const checkPermission = async () => {
+        const hasPermission = await Location.requestForegroundPermissionsAsync();
+        if (hasPermission.status === 'granted') {
+            const permission = await askPermission();
+            return permission;
+        }
+        return true;
+    };
+
+
+    const askPermission = async () => {
+        const permission = await Location.requestForegroundPermissionsAsync();
+        return permission.status === 'granted';
+    };
+
+
+    const getLocation = async () => {
+        try {
+            const { granted } = await Location.requestForegroundPermissionsAsync();
+            if (!granted) return;
+            const {
+                coords: { latitude, longitude },
+            } = await Location.getCurrentPositionAsync();
+            setLatLng({ latitude: latitude, longitude: longitude });
+        } catch (err) {
+
+        }
+    };
+
+    const _map = useRef(1);
+
+
+    useEffect(() => {
+        checkPermission();
+        getLocation()
+            // console.log(latlng)
+            , [];
+    });
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -90,6 +132,114 @@ const HomeScreen = () => {
                             size={26}
                         />
                     </View>
+                </View>
+                <View style={styles.view5}>
+                    <View style={styles.view6}>
+                        <View style={styles.view7}>
+                            <Icon
+                                type="material-community"
+                                name='map-marker'
+                                color={colors.gray1}
+                                size={22}
+                            />
+                        </View>
+                        <View>
+                            <Text
+                                style={{
+                                    fontSize: 18,
+                                    color: colors.black
+                                }}
+                            >
+                                No. 11 bassey street.
+                            </Text>
+                            <Text
+                                style={{
+                                    color: colors.grey3
+                                }}
+                            >
+                                Calabar, Cross River State, Nigeria.
+                            </Text>
+                        </View>
+                    </View>
+                    <View>
+                        <Icon
+                            type="material-community"
+                            name='chevron-right'
+                            color={colors.grey}
+                            size={26}
+                        />
+                    </View>
+                </View>
+
+                <View style={{ ...styles.view5, borderBottomWidth: 0 }}>
+                    <View style={styles.view6}>
+                        <View style={styles.view7}>
+                            <Icon
+                                type="material-community"
+                                name='map-marker'
+                                color={colors.gray1}
+                                size={22}
+                            />
+                        </View>
+                        <View>
+                            <Text
+                                style={{
+                                    fontSize: 18,
+                                    color: colors.black
+                                }}
+                            >
+                                No. 11 bassey street.
+                            </Text>
+                            <Text
+                                style={{
+                                    color: colors.grey3
+                                }}
+                            >
+                                Calabar, Cross River State, Nigeria.
+                            </Text>
+                        </View>
+                    </View>
+                    <View>
+                        <Icon
+                            type="material-community"
+                            name='chevron-right'
+                            color={colors.grey}
+                            size={26}
+                        />
+                    </View>
+                </View>
+
+                <Text style={styles.text4}>Around you</Text>
+
+                <View style={{
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}
+                >
+                    <MapView
+                        ref={_map}
+                        provider={PROVIDER_GOOGLE}
+                        style={styles.map}
+                        customMapStyle={mapStyle}
+                        showsUserLocation={true}
+                        followsUserLocation={true}
+                    // initialRegion={{ ...carsAround[0], latitudeDelta: 0.008, longitudeDelta: 0.008 }}
+
+                    >
+                        {/* {carsAround.map((item, index) =>
+                            <MapView.Marker coordinate={item} key={index.toString()}>
+                                <Image
+                                    source={require('../../assets/carMarker.png')}
+                                    style={styles.carsAround}
+                                    resizeMode="cover"
+                                />
+                            </MapView.Marker>
+
+                        )
+
+                        } */}
+
+                    </MapView>
                 </View>
             </ScrollView>
             <StatusBar style="light" backgroundColor={colors.blue} translucent />
