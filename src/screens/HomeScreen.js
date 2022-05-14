@@ -10,7 +10,7 @@ import {
     FlatList
 } from 'react-native';
 import { Icon } from "react-native-elements";
-import { filterData } from "../global/data";
+import { carsAround, filterData } from "../global/data";
 import { colors, parameters } from "../global/styles";
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { mapStyle } from "../global/mapStyle";
@@ -223,10 +223,10 @@ const HomeScreen = () => {
                         customMapStyle={mapStyle}
                         showsUserLocation={true}
                         followsUserLocation={true}
-                    // initialRegion={{ ...carsAround[0], latitudeDelta: 0.008, longitudeDelta: 0.008 }}
+                        initialRegion={{ ...carsAround[0], latitudeDelta: 0.008, longitudeDelta: 0.008 }}
 
                     >
-                        {/* {carsAround.map((item, index) =>
+                        {carsAround.map((item, index) =>
                             <MapView.Marker coordinate={item} key={index.toString()}>
                                 <Image
                                     source={require('../../assets/carMarker.png')}
@@ -237,8 +237,7 @@ const HomeScreen = () => {
 
                         )
 
-                        } */}
-
+                        }
                     </MapView>
                 </View>
             </ScrollView>
