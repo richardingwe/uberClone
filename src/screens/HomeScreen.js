@@ -7,7 +7,8 @@ import {
     Dimensions,
     Image,
     ScrollView,
-    FlatList
+    FlatList,
+    TouchableOpacity
 } from 'react-native';
 import { Icon } from "react-native-elements";
 import { carsAround, filterData } from "../global/data";
@@ -18,7 +19,7 @@ import * as Location from 'expo-location';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
     const checkPermission = async () => {
         const hasPermission = await Location.requestForegroundPermissionsAsync();
         if (hasPermission.status === 'granted') {
@@ -78,9 +79,13 @@ const HomeScreen = () => {
                         <View style={styles.view8}>
                             <Text style={styles.text2}>Read a book, Take a nap, Stare out the window</Text>
 
-                            <View style={styles.button1}>
-                                <Text style={styles.button1Text}>Ride with Uber</Text>
-                            </View>
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('RequestScreen')}
+                            >
+                                <View style={styles.button1}>
+                                    <Text style={styles.button1Text}>Ride with Uber</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
 
                         <View>
