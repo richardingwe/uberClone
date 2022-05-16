@@ -2,6 +2,7 @@ import { StyleSheet, Image, View, Text, Dimensions, TouchableOpacity } from 'rea
 
 import React from 'react';
 import { colors, parameters } from "../global/styles";
+import MapComponent from "../components/MapComponent";
 
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
@@ -10,7 +11,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const RequestScreen = () => {
     return (
         <View style={styles.container}>
-            <Text>RequestScreen</Text>
+            <MapComponent />
         </View>
     );
 };
