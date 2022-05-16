@@ -11,7 +11,7 @@ export default class MapComponent extends Component {
                 <MapView
                     provider={PROVIDER_GOOGLE}
                     style={styles.map}
-                // customMapStyle={mapStyle}
+                    customMapStyle={mapStyle}
                 >
 
                 </MapView>
