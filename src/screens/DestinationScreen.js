@@ -1,45 +1,93 @@
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { colors, parameters } from "../global/styles";
 import { Avatar, Icon } from 'react-native-elements';
-
-
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+// import { GOOGLE_MAPS_APIKEY } from "@env";
+navigator.geolocation = require('react-native-geolocation-service');
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 
-const DestinationScreen = () => {
-    return (
-        <View>
-            <View style={styles.view1}>
-                <Icon
-                    type="material-community"
-                    name='arrow-left'
-                    color={colors.grey}
-                    size={32}
-                />
-            </View>
-            <TouchableOpacity>
-                <View style={styles.view3}>
-                    <Avatar
-                        rounded
-                        avatarStyle={{
+const DestinationScreen = ({ navigation }) => {
 
-                        }}
-                        size={30}
-                        source={require('../../assets/blankProfilePic.jpg')}
-                    />
-                    <Text style={{ marginLeft: 5 }}>For Someone</Text>
+    const textInput1 = useRef(4);
+    const textInput2 = useRef(5);
+
+    const [destination, setDestination] = useState(false);
+
+    return (
+        <>
+            <View style={styles.view2}>
+                <View style={styles.view1}>
                     <Icon
                         type="material-community"
-                        name='chevron-down'
+                        name='arrow-left'
                         color={colors.grey}
-                        size={26}
+                        size={32}
+                        onPress={() => navigation.goBack()}
                     />
                 </View>
-            </TouchableOpacity>
-        </View>
+                <TouchableOpacity>
+                    <View style={{ top: 35, alignItems: 'center' }}>
+                        <View style={styles.view3}>
+                            <Avatar
+                                rounded
+                                avatarStyle={{
+
+                                }}
+                                size={30}
+                                source={require('../../assets/blankProfilePic.jpg')}
+                            />
+                            <Text style={{ marginLeft: 5 }}>For Someone</Text>
+                            <Icon
+                                type="material-community"
+                                name='chevron-down'
+                                color={colors.grey}
+                                size={26}
+                            />
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+            {/* {destination === false && */}
+            <GooglePlacesAutocomplete
+                nearbyPlacesAPI='GooglePlacesSearch'
+                placeholder="From..."
+                listViewDisplayed="auto"
+                debounce={400}
+                currentLocation={true}
+                ref={textInput1}
+                minLength={2}
+                enablePoweredByContainer={false}
+                fetchDetails={true}
+                autoFocus={true}
+                styles={autoComplete}
+                query={{
+                    key: 'AIzaSyAl97q2Lv2rx1sceWx8D77079Vx4iHirOY',
+                    language: "en"
+                }}
+
+                onPress={(data, details = null) => {
+                    console.log(details.geometry);
+
+                    // dispatchOrigin({
+                    //     type: "ADD_ORIGIN", payload: {
+                    //         latitude: details.geometry.location.lat,
+                    //         longitude: details.geometry.location.lng,
+                    //         address: details.formatted_address,
+                    //         name: details.name
+                    //     }
+                    // });
+
+                    // setDestination(true);
+                }}
+
+            />
+            {/* } */}
+        </>
     );
 };
 
@@ -57,7 +105,7 @@ const styles = StyleSheet.create({
 
     view1: {
         position: "absolute",
-        top: 25,
+        top: 30,
         left: 12,
         backgroundColor: colors.white,
         height: 40,
@@ -122,7 +170,7 @@ const autoComplete = {
         marginHorizontal: 15,
     },
     container: {
-        paddingTop: 20,
+        paddingTop: 30,
         flex: 1,
         backgroundColor: colors.white
     },

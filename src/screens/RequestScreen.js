@@ -17,6 +17,7 @@ const RequestScreen = ({ navigation, route }) => {
                     name='arrow-left'
                     color={colors.grey}
                     size={32}
+                    onPress={() => navigation.goBack()}
                 />
             </View>
             <View style={styles.view2}>
